@@ -1,94 +1,50 @@
 <script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
-import { darkTheme } from 'naive-ui'
-import { ref } from 'vue'
-import { NConfigProvider } from 'naive-ui'
+import { RouterLink, RouterView, useRoute } from 'vue-router'
+import router from './router'
+import PageTabs from './components/PageTabs/PageTabs.vue'
+import { tab } from './stores/tab'
+import { computed } from 'vue'
 
-const theme = ref<typeof darkTheme | null>(darkTheme)
+const route = useRoute()
+
+const tabStore = tab()
+const keepAliveTab = computed(() => tabStore.tabList.map((tab) => tab.componentName))
 </script>
 
 <template>
-  <n-config-provider class="app" :theme="theme">
+  <n-config-provider class="app">
     <header>
-      <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
+      <nav>
+        <RouterLink v-for="route in router.options.routes" :key="route.name" :to="route.path">
+          {{ route.meta?.label }}
+        </RouterLink>
+      </nav>
 
-      <div class="wrapper">
-        <HelloWorld msg="You did it!" />
-
-        <nav>
-          <RouterLink to="/">Home</RouterLink>
-          <RouterLink to="/about">About</RouterLink>
-          <RouterLink to="/project">Project</RouterLink>
-          <RouterLink to="/posts">Posts</RouterLink>
-        </nav>
-      </div>
+      <PageTabs />
     </header>
 
-    <RouterView />
+    <main>
+      <RouterView v-slot="{ Component }">
+        <Transition name="fade" appear>
+          <KeepAlive class="keep-alive-tab" :key="route.path" :include="keepAliveTab">
+            <component :is="Component" />
+          </KeepAlive>
+        </Transition>
+      </RouterView>
+    </main>
   </n-config-provider>
 </template>
 
 <style scoped>
-header {
-  line-height: 1.5;
-  max-height: 100vh;
-}
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-nav {
+.keep-alive-tab {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
-  font-size: 12px;
-  text-align: center;
-  margin-top: 2rem;
+  height: 100%;
 }
 
-nav a.router-link-exact-active {
-  color: var(--color-text);
-}
-
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
-}
-
-nav a {
-  display: inline-block;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
-}
-
-nav a:first-of-type {
-  border: 0;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-
-  nav {
-    text-align: left;
-    margin-left: -1rem;
-    font-size: 1rem;
-
-    padding: 1rem 0;
-    margin-top: 1rem;
-  }
+main {
+  position: relative;
 }
 </style>
