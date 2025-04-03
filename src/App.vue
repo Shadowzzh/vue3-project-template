@@ -19,6 +19,8 @@ const theme = ref<typeof darkTheme | null>(darkTheme)
         <nav>
           <RouterLink to="/">Home</RouterLink>
           <RouterLink to="/about">About</RouterLink>
+          <RouterLink to="/project">Project</RouterLink>
+          <RouterLink to="/posts">Posts</RouterLink>
         </nav>
       </div>
     </header>
