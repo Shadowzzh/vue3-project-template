@@ -56,7 +56,7 @@ jobs:
       # 打印 Node.js 版本
       - name: Echo node version
         run: node -v
-      # 打印 pnpm 版本
+      # 打印 pnpm q 版本
       - name: Echo pnpm version
         run: pnpm -v
       # 安装依赖
