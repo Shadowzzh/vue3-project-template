@@ -15,9 +15,12 @@ const count = ref(0)
 <style>
 @media (min-width: 1024px) {
   .project {
-    min-height: 100vh;
     display: flex;
     align-items: center;
+  }
+
+  .project > * {
+    margin-right: 20px;
   }
 }
 </style>

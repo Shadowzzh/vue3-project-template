@@ -4,6 +4,7 @@ import router from './router'
 import PageTabs from './components/PageTabs/PageTabs.vue'
 import { tab } from './stores/tab'
 import { computed } from 'vue'
+import './assets/base.css'
 
 const route = useRoute()
 
@@ -15,22 +16,35 @@ const keepAliveTab = computed(() => tabStore.tabList.map((tab) => tab.componentN
   <n-config-provider class="app">
     <header>
       <nav>
-        <RouterLink v-for="route in router.options.routes" :key="route.name" :to="route.path">
-          {{ route.meta?.label }}
+        <RouterLink
+          class="nav-item"
+          :style="{
+            color: route.path === item.path ? '#333' : '#999',
+            fontWeight: route.path === item.path ? '600' : '400',
+            textDecoration: route.path === item.path ? 'underline' : 'none',
+          }"
+          v-for="item in router.options.routes"
+          :key="item.name"
+          :to="item.path"
+        >
+          {{ item.meta?.label }}
         </RouterLink>
       </nav>
 
       <PageTabs />
     </header>
 
-    <main>
-      <RouterView v-slot="{ Component }">
-        <Transition name="fade" appear>
-          <KeepAlive class="keep-alive-tab" :key="route.path" :include="keepAliveTab">
-            <component :is="Component" />
-          </KeepAlive>
-        </Transition>
-      </RouterView>
+    <main class="main">
+      keepAliveTab : {{ keepAliveTab }}
+      <div class="main-content">
+        <RouterView v-slot="{ Component }">
+          <Transition name="fade" appear>
+            <KeepAlive class="keep-alive-tab" :key="route.path" :include="keepAliveTab">
+              <component :is="Component" />
+            </KeepAlive>
+          </Transition>
+        </RouterView>
+      </div>
     </main>
   </n-config-provider>
 </template>
@@ -40,11 +54,47 @@ const keepAliveTab = computed(() => tabStore.tabList.map((tab) => tab.componentN
   position: absolute;
   top: 0;
   left: 0;
+}
+
+.app {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+header {
+  width: 500px;
+  padding: 20px;
+}
+
+header nav {
   width: 100%;
-  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin-bottom: 24px;
+}
+
+.nav-item {
+  font-size: 24px;
+  font-weight: 600;
+  color: #333;
+  text-decoration: none;
 }
 
 main {
+  padding: 0 20px;
+  width: 500px;
+}
+
+main .main-content {
   position: relative;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 </style>

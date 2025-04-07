@@ -7,9 +7,12 @@
 <style>
 @media (min-width: 1024px) {
   .summer {
-    min-height: 100vh;
     display: flex;
     align-items: center;
+  }
+
+  .summer > * {
+    margin-right: 20px;
   }
 }
 </style>

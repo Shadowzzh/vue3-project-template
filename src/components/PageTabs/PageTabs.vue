@@ -40,6 +40,14 @@ const onClose = (tab: Tab) => {
 const onClickTab = (tab: Tab) => {
   router.push(tab.path)
 }
+
+const getTabType = (path: string) => {
+  if (path === currentTab.value.path) {
+    return 'success'
+  } else {
+    return 'default'
+  }
+}
 </script>
 
 <template>
@@ -48,7 +56,7 @@ const onClickTab = (tab: Tab) => {
       v-for="tab in tabStore.tabList"
       :bordered="route.path !== tab.path"
       :key="tab.name"
-      :type="tab.type"
+      :type="getTabType(tab.path)"
       closable
       @close.stop="onClose(tab)"
       @click="onClickTab(tab)"
@@ -58,3 +66,5 @@ const onClickTab = (tab: Tab) => {
     </n-tag>
   </n-space>
 </template>
+
+<style scoped></style>
