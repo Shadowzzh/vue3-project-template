@@ -35,7 +35,6 @@ const keepAliveTab = computed(() => tabStore.tabList.map((tab) => tab.componentN
     </header>
 
     <main class="main">
-      keepAliveTab : {{ keepAliveTab }}
       <div class="main-content">
         <RouterView v-slot="{ Component }">
           <Transition name="fade" appear>
@@ -61,11 +60,13 @@ const keepAliveTab = computed(() => tabStore.tabList.map((tab) => tab.componentN
   justify-content: center;
   flex-direction: column;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 header {
-  width: 500px;
+  max-width: 500px;
   padding: 20px;
+  width: 100%;
 }
 
 header nav {
@@ -73,6 +74,7 @@ header nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
 
   margin-bottom: 24px;
 }
@@ -82,19 +84,20 @@ header nav {
   font-weight: 600;
   color: #333;
   text-decoration: none;
+  padding-right: 12px;
 }
 
 main {
   padding: 0 20px;
-  width: 500px;
+  max-width: 500px;
+  width: 100%;
 }
 
 main .main-content {
   position: relative;
+  width: 100%;
 
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
 }
 </style>

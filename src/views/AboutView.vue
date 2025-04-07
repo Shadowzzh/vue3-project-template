@@ -14,8 +14,6 @@ const count = ref(0)
 
 <style>
 .about {
-  display: flex;
-  align-items: center;
 }
 
 .about > * {

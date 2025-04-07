@@ -14,11 +14,6 @@ const count = ref(0)
 
 <style>
 @media (min-width: 1024px) {
-  .posts {
-    display: flex;
-    align-items: center;
-  }
-
   .posts > * {
     margin-right: 20px;
   }

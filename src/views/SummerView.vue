@@ -5,14 +5,7 @@
 </template>
 
 <style>
-@media (min-width: 1024px) {
-  .summer {
-    display: flex;
-    align-items: center;
-  }
-
-  .summer > * {
-    margin-right: 20px;
-  }
+.summer > * {
+  margin-right: 20px;
 }
 </style>

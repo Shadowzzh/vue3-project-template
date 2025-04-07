@@ -13,14 +13,7 @@ const count = ref(0)
 </template>
 
 <style>
-@media (min-width: 1024px) {
-  .project {
-    display: flex;
-    align-items: center;
-  }
-
-  .project > * {
-    margin-right: 20px;
-  }
+.project > * {
+  margin-right: 20px;
 }
 </style>
